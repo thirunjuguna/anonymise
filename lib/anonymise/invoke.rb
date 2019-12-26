@@ -17,6 +17,26 @@ module Anonymise
       @db_name ||= opt['db']
     end
 
+    def config
+      if opt['path'].nil?
+        puts 'Path to config file is required'.colorize(:red)
+        exit
+      end
+
+      unless File.exist?(opt['path'])
+        puts 'File does not exist'.colorize(:red)
+        exit
+      end
+      @content = YAML.safe_load(File.open(opt['path']))
+
+      if @content.empty?
+        puts 'Config file is empty kindly check https://github.com/thirunjuguna/anonymise/blob/master/anonymise.yml'
+        exit
+      end
+
+      @config ||= @content
+    end
+
     def user
       @user ||= opt['user']
     end
@@ -41,8 +61,7 @@ module Anonymise
         port: @port,
         host: @host
       }
-      path = opt['path']
-      klass = Anonymise::DbFaker.new(db_args, path)
+      klass = Anonymise::DbFaker.new(db_args, config)
       klass.fake
     end
   end

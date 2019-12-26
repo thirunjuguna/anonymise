@@ -17,7 +17,7 @@ module Anonymise
       say "Anonymise version #{Anonymise::VERSION}"
     end
 
-    register Anonymise::Invoke, 'start', 'db:db_name path:path_to_config_file', 'Anonymise Database'
+    register Anonymise::Invoke, 'fake', 'fake db:db_name path:path_to_config_file', 'Anonymise Database'
 
     def self.exit_on_failure
       true

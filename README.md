@@ -1,8 +1,5 @@
 # Anonymise
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/anonymise`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-
+Anonymise your postgres database
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -19,20 +16,31 @@ Or install it yourself as:
 
     $ gem install anonymise
 Create `anonymise.yml` file in your local machine
-Add below code to `/anonymise.yml`
-```$xslt
-{
-  name: ["first_name","last_name","name"],
-  internet: ["email","url"],
-  address: ["street"]
-}
-```
-`anonymise.yml` file will holder customer column names that need to be anonymised.
-The column names are group in categories according to [Faker class names](https://github.com/faker-ruby/faker#default)
 
+```$xslt
+
+{
+  users: {email: 'email',last_name: 'string'},
+}
+
+```
+`users` is a table  in the database you want to anonymise
+
+`email: 'email'` defines a column in users that has data type email
+
+`last_name: 'string''` defines a column is users table that has data type string
+
+Datatypes that can be used:-
+```aidl
+1. email
+2. string
+3. number
+4. mobile
+5. url
+```
 ## Usage
 ```$xslt
-   $ bundle exec rake anonymise:start db:dbname path:path_to_anonymise.yml
+   $ anonymise fake db:dbname path:path_to_anonymise.yml
 ```
 
 ## Development
